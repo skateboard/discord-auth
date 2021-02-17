@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${name + ' - Dashboard'}"></title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.css">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <div class="container">
+            <a href="../" class="navbar-brand" th:text="${name}"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    <br><br><br>
+
+    <div class="jumbotron">
+        <div class="d-flex flex-row">
+            <img th:src="${session.user.getAvatar()}" class="img-lg rounded" alt="profile image">
+            <div class="ml-3">
+                <h5 th:text="${session.user.getUsername() + '#' + session.user.getId()}"></h5>
+                <p th:text="${'Member Since: ' + session.user.getCreatedAt()}"></p>
+                <p th:text="${'Last Login: ' + session.user.getLastLogin()}"></p>
+            </div>
+        </div>
+
+        <br>
+        <a class="btn btn-danger" href="/auth/logout" role="button">Logout</a>
+    </div>
+</div>
+
+
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

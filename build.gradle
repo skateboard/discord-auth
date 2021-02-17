@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+}
+
+group 'me.brennan'
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+
+    maven {
+        name 'JitPack'
+        url 'https://jitpack.io'
+    }
+}
+
+configurations {
+    shaded
+
+    compile.extendsFrom shaded
+
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+        exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+    }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf"){
+        exclude module: "logback-classic"
+    }
+    shaded 'org.springframework.boot:spring-boot-starter-web'
+    shaded 'com.google.code.gson:gson:+'
+    implementation 'com.github.Mokulu:discord-oauth2-api:1.0.1'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shaded]
+}
+
+build {
+    dependsOn shadowJar
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "Main")
+    }
+}
