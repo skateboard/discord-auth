@@ -8,6 +8,7 @@ import me.brennan.discordauth.util.config.ConfigUtil;
 import me.brennan.discordauth.util.config.model.Config;
 import me.brennan.discordauth.util.config.model.MySql;
 import me.brennan.discordauth.util.config.model.OAuth;
+import me.brennan.discordauth.util.discord.DiscordWebHook;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -27,6 +28,8 @@ public class DiscordAuth {
 
     private Config config;
 
+    private DiscordWebHook discordWebHook;
+
     public void start() {
         this.config = ConfigUtil.loadConfig();
 
@@ -35,6 +38,9 @@ public class DiscordAuth {
                     new OAuth("", "", "", new String[]{}),
                     new MySql("", 3306, "", "", ""));
             ConfigUtil.saveConfig(config);
+        }
+        if(config.getNotifications().isEnabled()) {
+            this.discordWebHook = new DiscordWebHook(config.getNotifications().getWebHookUrl()).setUsername(config.getName());
         }
 
         this.mySQL = new MySQL(config.getMySQL());
@@ -66,5 +72,9 @@ public class DiscordAuth {
         }
 
         return INSTANCE;
+    }
+
+    public DiscordWebHook getDiscordWebHook() {
+        return discordWebHook;
     }
 }

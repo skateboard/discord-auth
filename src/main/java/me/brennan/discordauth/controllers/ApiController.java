@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import me.brennan.discordauth.DiscordAuth;
 import me.brennan.discordauth.models.StoredLicense;
 import me.brennan.discordauth.models.StoredUser;
+import me.brennan.discordauth.util.discord.Embeds;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class ApiController {
             if(storedUser != null) {
                 if(storedLicense.getUsedBy() == 0) {
                     if(DiscordAuth.getINSTANCE().getMySQL().redeem(storedUser.getId(), storedLicense.getId())) {
+                        Embeds.sendRedeemNotification(storedUser, storedLicense);
                         responseObject.addProperty("status", true);
                     } else {
                         responseObject.addProperty("status", false);

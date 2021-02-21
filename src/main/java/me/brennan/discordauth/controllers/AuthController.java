@@ -5,6 +5,7 @@ import io.mokulu.discord.oauth.model.TokensResponse;
 import io.mokulu.discord.oauth.model.User;
 import me.brennan.discordauth.DiscordAuth;
 import me.brennan.discordauth.models.StoredUser;
+import me.brennan.discordauth.util.discord.Embeds;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

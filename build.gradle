@@ -41,6 +41,7 @@ dependencies {
     shaded 'com.google.code.gson:gson:+'
     implementation 'com.github.Mokulu:discord-oauth2-api:1.0.1'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+    shaded 'club.minnced:discord-webhooks:0.1.6'
 
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

@@ -82,4 +82,18 @@ public class StoredUser {
     public String getAvatar() {
         return avatar;
     }
+
+    @Override
+    public String toString() {
+        return "StoredUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", discord_id='" + discord_id + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", lastLogin='" + lastLogin + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", rank='" + rank + '\'' +
+                '}';
+    }
 }

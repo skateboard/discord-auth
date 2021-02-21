@@ -22,11 +22,19 @@ public class Config {
     @SerializedName("mysql")
     private final MySql mySQL;
 
+    @SerializedName("notifications")
+    private final Notifications notifications;
+
     public Config(String name, int port, OAuth oAuth, MySql mySQL) {
         this.name = name;
         this.port = port;
         this.oAuth = oAuth;
         this.mySQL = mySQL;
+        this.notifications = new Notifications();
+    }
+
+    public Notifications getNotifications() {
+        return notifications;
     }
 
     public String getName() {
