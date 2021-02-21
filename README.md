@@ -1,6 +1,6 @@
 <h1 align="center">Discord Auth</h1>
 <div align="center">
-  <strong>A basic example of Discord OAuth using Spring</strong>
+  <strong>A basic licensing system with Discord OAuth.</strong>
 </div>
 <br />
 
