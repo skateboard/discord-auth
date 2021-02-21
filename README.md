@@ -32,3 +32,10 @@
   }
 }
 ```
+
+# Installation
+Clone the repo
+```
+git clone https://github.com/skateboard/discord-auth.git
+```
+Setup in a ide like Eclipse or Intelij. Setup the database with ```discordauth.sql``` tables. Once all that is done run the program once and it will create a config edit the config properties.
