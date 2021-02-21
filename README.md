@@ -29,6 +29,11 @@
     "username": "root",
     "password": "",
     "database": "discordauth"
+  },
+  "notifications": {
+    "enabled": false,
+    "webhook_url": "WEBHOOK_URL",
+    "mode": "basic"
   }
 }
 ```
