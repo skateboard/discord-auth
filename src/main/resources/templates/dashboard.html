@@ -24,12 +24,21 @@
             <img th:src="${session.user.getAvatar()}" class="img-lg rounded" alt="profile image">
             <div class="ml-3">
                 <h5 th:text="${session.user.getUsername() + '#' + session.user.getId()}"></h5>
+                <div th:switch="${session.user.getRank()}">
+                    <span th:case="'user'" class="badge badge-primary">User</span>
+                    <span th:case="'admin'" class="badge badge-danger">Admin</span>
+                    <span th:case="'default'" class="badge badge-secondary">Default</span>
+                </div>
                 <p th:text="${'Member Since: ' + session.user.getCreatedAt()}"></p>
                 <p th:text="${'Last Login: ' + session.user.getLastLogin()}"></p>
             </div>
         </div>
 
         <br>
+        <div th:if="${session.user.isDefault()}">
+            <a class="btn btn-primary" href="/dashboard/redeem" role="button">Redeem</a>
+            <br><br>
+        </div>
         <a class="btn btn-danger" href="/auth/logout" role="button">Logout</a>
     </div>
 </div>

@@ -20,6 +20,17 @@ public class AppController {
         return "index";
     }
 
+    @GetMapping("dashboard/redeem")
+    public String redeem(HttpServletRequest request, Model model) {
+        if(request.getSession().getAttribute("user") != null) {
+            model.addAttribute("name", DiscordAuth.getINSTANCE().getConfig().getName());
+
+            return "redeem";
+        }
+
+        return "redirect:/";
+    }
+
     @GetMapping("dashboard/")
     public String dashboard(HttpServletRequest request, Model model) {
         if(request.getSession().getAttribute("user") != null) {

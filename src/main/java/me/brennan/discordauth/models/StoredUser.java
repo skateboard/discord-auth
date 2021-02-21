@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public class StoredUser {
     private final int id;
 
-    private final String username, email, discord_id, avatar, lastLogin, createdAt;
+    private final String username, email, discord_id, avatar, lastLogin, createdAt, rank;
 
     public StoredUser(int id, String username, String email, String discord_id, String avatar, String createdAt) {
         this.id = id;
@@ -21,6 +21,7 @@ public class StoredUser {
         this.avatar = avatar;
         this.lastLogin = createdAt;
         this.createdAt = createdAt;
+        this.rank = "default";
     }
 
     public StoredUser(ResultSet resultSet) throws Exception {
@@ -31,6 +32,7 @@ public class StoredUser {
         this.avatar = resultSet.getString("avatar");
         this.lastLogin = resultSet.getString("last_login");
         this.createdAt = resultSet.getString("created_at");
+        this.rank = resultSet.getString("rank");
     }
 
     public StoredUser(User discordUser, String avatar, String date) {
@@ -41,6 +43,15 @@ public class StoredUser {
         this.id = 0;
         this.createdAt = date;
         this.lastLogin = date;
+        this.rank = "default";
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public boolean isDefault() {
+        return getRank().equalsIgnoreCase("default");
     }
 
     public String getCreatedAt() {
@@ -58,6 +69,7 @@ public class StoredUser {
     public String getUsername() {
         return username;
     }
+
 
     public String getEmail() {
         return email;

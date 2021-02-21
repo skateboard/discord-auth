@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${name + ' - Dashboard'}"></title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.css">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <div class="container">
+            <a href="../" class="navbar-brand" th:text="${name}"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    <br><br><br>
+
+    <div class="jumbotron">
+        <div id="redeemGroup" class="form-group" data-children-count="1">
+            <label class="form-control-label" for="inputLicense">License</label>
+            <input type="text" class="form-control" id="inputLicense">
+
+            <div id="errorMessage" class="invalid-feedback"></div>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn btn-success btn-lg" id="redeemButton">Redeem</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#redeemButton").on('click', function() {
+            const redeemGroup = $("#redeemGroup");
+            const license = $("#inputLicense");
+            const errorMsg = $("#errorMessage");
+
+            (async () => {
+                const rawResponse = await fetch("../api/v1/redeem", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        license: license.val()
+                    })
+                });
+                const content = await rawResponse.json();
+
+                if(content.status) {
+                    window.location = "../auth/logout";
+                } else {
+                    license.attr("class", "form-control is-invalid")
+                    redeemGroup.attr("class", "form-group has-danger");
+                    errorMsg.html(content.message);
+                }
+            })();
+        });
+    });
+</script>
+</body>
+
+</html>
